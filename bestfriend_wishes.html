@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#fff0f5" />
+  <title>A Little Reminder for You 💗</title>
+  <style>
+    :root { --pink:#ff6f9f; --purple:#8b5cf6; --ink:#45334a; }
+    * { box-sizing:border-box; }
+    body {
+      margin:0; min-height:100svh; overflow-x:hidden;
+      display:grid; place-items:center; padding:22px;
+      font-family: ui-rounded, "Trebuchet MS", system-ui, sans-serif;
+      color:var(--ink);
+      background: radial-gradient(circle at top left,#ffe1ec 0,transparent 38%),
+                  radial-gradient(circle at bottom right,#e7ddff 0,transparent 42%),
+                  linear-gradient(135deg,#fff8fb,#f8f4ff);
+    }
+    .hearts { position:fixed; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+    .heart { position:absolute; bottom:-40px; opacity:.55; animation: floatUp linear infinite; }
+    @keyframes floatUp { to { transform:translateY(-115vh) rotate(25deg); opacity:0; } }
+    .card {
+      position:relative; z-index:1; width:min(100%,440px); padding:30px 23px 24px;
+      text-align:center; border:1px solid rgba(255,255,255,.85); border-radius:30px;
+      background:rgba(255,255,255,.78); backdrop-filter:blur(12px);
+      box-shadow:0 18px 55px rgba(132,83,135,.16);
+      animation: appear .7s ease-out both;
+    }
+    @keyframes appear { from { opacity:0; transform:translateY(18px) scale(.98); } to {opacity:1;transform:none;} }
+    .badge { display:inline-block; padding:8px 13px; border-radius:999px; background:#fff0f5; color:#d94678; font-size:.8rem; font-weight:800; letter-spacing:.04em; }
+    .big-heart { font-size:54px; margin:12px 0 2px; filter:drop-shadow(0 5px 8px #ffb4ce); animation: beat 1.6s ease-in-out infinite; }
+    @keyframes beat { 50% { transform:scale(1.09); } }
+    h1 { font-size:clamp(1.8rem,7vw,2.25rem); line-height:1.12; margin:8px 0 12px; letter-spacing:-.04em; }
+    .intro { color:#78657e; line-height:1.6; margin:0 auto 21px; max-width:340px; font-size:.98rem; }
+    .note { text-align:left; padding:17px 16px; border-radius:19px; margin:12px 0; background:linear-gradient(135deg,#fff4f8,#f6f1ff); border:1px solid #f4e5f4; }
+    .note h2 { font-size:1rem; margin:0 0 6px; color:#bd4777; }
+    .note p { margin:0; line-height:1.58; font-size:.94rem; }
+    .btn {
+      width:100%; border:0; border-radius:16px; padding:15px 18px; margin-top:17px;
+      color:white; font-size:1rem; font-weight:800; cursor:pointer;
+      background:linear-gradient(100deg,var(--pink),var(--purple));
+      box-shadow:0 9px 20px #d7b1e9; transition:transform .18s ease,filter .18s ease;
+    }
+    .btn:active { transform:scale(.98); }
+    .footer { margin:16px 0 0; color:#9a879f; font-size:.8rem; }
+    .confetti { position:fixed; top:-12px; z-index:5; width:8px; height:13px; pointer-events:none; animation: fall var(--dur,2.8s) linear forwards; }
+    @keyframes fall { to { transform:translate3d(var(--drift),110vh,0) rotate(760deg); opacity:.9; } }
+
+    .memories-title { margin:25px 0 8px; font-size:1.35rem; letter-spacing:-.03em; }
+    .memories-subtitle { margin:0 0 14px; color:#8d7a92; font-size:.88rem; line-height:1.5; }
+    .memory-card { overflow:hidden; border-radius:19px; margin:13px 0; background:#fff; border:1px solid #f2dfef; box-shadow:0 7px 18px rgba(132,83,135,.08); text-align:left; }
+    .memory-photo { width:100%; aspect-ratio:4/3; display:block; object-fit:cover; background:linear-gradient(135deg,#ffe4ef,#e8e0ff); }
+    .photo-placeholder { min-height:155px; display:grid; place-items:center; padding:18px; text-align:center; color:#a15b84; background:linear-gradient(135deg,#ffe4ef,#e8e0ff); line-height:1.5; }
+    .memory-caption { padding:14px 15px 16px; }
+    .memory-caption h3 { margin:0 0 5px; font-size:1rem; color:#bd4777; }
+    .memory-caption p { margin:0; color:#6f5b76; line-height:1.55; font-size:.91rem; }
+    .upload-label { display:block; width:100%; margin-top:12px; padding:13px 15px; border:1px dashed #dca6c8; border-radius:14px; color:#a13c72; background:#fff5fa; font-weight:800; cursor:pointer; text-align:center; }
+    .upload-input { display:none; }
+    .small-hint { color:#98869f; font-size:.78rem; line-height:1.5; margin:9px 0 0; }
+
+    @media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; } }
+    @media (max-width:360px) { .card { padding:24px 16px 20px; } .note { padding:14px; } }
+  </style>
+</head>
+<body>
+  <div class="hearts" id="hearts" aria-hidden="true"></div>
+  <main class="card">
+    <span class="badge">A LITTLE REMINDER FOR YOU ✨</span>
+    <div class="big-heart" aria-hidden="true">💗</div>
+    <h1>Hey, Iqraa 🌷</h1>
+    <p class="intro">Just a tiny reminder from your friend: you don't have to handle everything perfectly, okay?</p>
+
+    <section class="note">
+      <h2>🌸 About your health</h2>
+      <p>I hope you feel better soon. Please take care of yourself, get enough rest, and don't worry too much. One day at a time, okay? And if you're feeling unwell, don't hesitate to tell someone you trust or get the care you need. You deserve to feel better. 💕</p>
+    </section>
+
+    <section class="note">
+      <h2>🫶 About you</h2>
+      <p>You're genuinely a good friend, and I hope you know that. You're someone worth appreciating, even on the days when you don't feel your best. I'm glad we're friends, and I hope life gives you lots of reasons to smile.</p>
+    </section>
+
+    <section class="note">
+      <h2>☁️ Whenever life feels heavy</h2>
+      <p>You don't need to pretend to be okay all the time. Take things slowly, be kind to yourself, and remember that tough days don't last forever. I'm always wishing the best for you as your friend. 💗</p>
+    </section>
+
+
+    <h2 class="memories-title">Little memories, Iqraa 🌷</h2>
+    <p class="memories-subtitle">Add your favourite photos and keep the little moments that make this friendship special.</p>
+
+    <section class="memory-card">
+      <div class="photo-placeholder" id="placeholder1">📸<br>Choose a photo for this memory</div>
+      <img class="memory-photo" id="photo1" alt="A special friendship memory" hidden />
+      <div class="memory-caption">
+        <h3>Little moments, big smiles ✨</h3>
+        <p>Some memories don't need a big occasion. The small, ordinary moments can be special too.</p>
+      </div>
+    </section>
+    <section class="memory-card">
+      <div class="photo-placeholder" id="placeholder2">🌸<br>Add another favourite photo</div>
+      <img class="memory-photo" id="photo2" alt="Another favourite memory" hidden />
+      <div class="memory-caption">
+        <h3>A memory worth keeping 💗</h3>
+        <p>I'm glad we became friends. I hope we make plenty more good memories, one day at a time.</p>
+      </div>
+    </section>
+    <section class="memory-card">
+      <div class="photo-placeholder" id="placeholder3">☁️<br>One more photo goes here</div>
+      <img class="memory-photo" id="photo3" alt="A happy moment" hidden />
+      <div class="memory-caption">
+        <h3>More good days ahead 🌈</h3>
+        <p>Whatever life gets busy with, I hope there are always little reasons for you to smile.</p>
+      </div>
+    </section>
+    <label class="upload-label" for="photoPicker">＋ Add photos from my phone 📱</label>
+    <input class="upload-input" type="file" id="photoPicker" accept="image/*" multiple />
+    <p class="small-hint">Choose up to 3 photos. They appear here on this device while this page is open. To share the photos with Iqraa, the image files need to be included with the website when you publish it.</p>
+
+    <button class="btn" id="celebrate">Tap for a little happiness 🎉</button>
+    <p class="footer">Made with care, for Iqraa ♡</p>
+  </main>
+  <script>
+    const hearts = document.getElementById('hearts');
+    const heartEmojis = ['♡','♥','💗','✦'];
+    for (let i = 0; i < 16; i++) {
+      const el = document.createElement('span');
+      el.className = 'heart';
+      el.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+      el.style.left = Math.random() * 100 + '%';
+      el.style.animationDuration = (9 + Math.random() * 11) + 's';
+      el.style.animationDelay = (-Math.random() * 18) + 's';
+      el.style.fontSize = (14 + Math.random() * 19) + 'px';
+      hearts.appendChild(el);
+    }
+
+    const picker = document.getElementById('photoPicker');
+    picker.addEventListener('change', (event) => {
+      const files = Array.from(event.target.files || []).slice(0, 3);
+      files.forEach((file, index) => {
+        if (!file.type.startsWith('image/')) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          const img = document.getElementById('photo' + (index + 1));
+          const placeholder = document.getElementById('placeholder' + (index + 1));
+          img.src = reader.result;
+          img.hidden = false;
+          placeholder.hidden = true;
+        };
+        reader.readAsDataURL(file);
+      });
+      if (files.length) burst(45);
+    });
+
+    function burst(count = 115) {
+      const colors = ['#ff6f9f','#ffc857','#9b8afb','#70d6c4','#ff9f68','#f7a8d8'];
+      for (let i = 0; i < count; i++) {
+        const bit = document.createElement('span');
+        bit.className = 'confetti';
+        bit.style.left = Math.random() * 100 + 'vw';
+        bit.style.background = colors[Math.floor(Math.random() * colors.length)];
+        bit.style.borderRadius = Math.random() > .5 ? '50%' : '2px';
+        bit.style.setProperty('--drift', (Math.random() * 220 - 110) + 'px');
+        bit.style.setProperty('--dur', (2 + Math.random() * 2.1) + 's');
+        bit.style.animationDelay = (Math.random() * .35) + 's';
+        document.body.appendChild(bit);
+        setTimeout(() => bit.remove(), 4800);
+      }
+    }
+    document.getElementById('celebrate').addEventListener('click', () => burst());
+    window.addEventListener('load', () => setTimeout(() => burst(65), 350));
+  </script>
+</body>
+</html>
